@@ -1,7 +1,7 @@
 export const navigation = [
   {
     label: 'Dashboard',
-    href: '/dashboard',
+    href: '/',
     // icon: ,
   },
   {

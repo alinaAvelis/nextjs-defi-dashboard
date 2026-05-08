@@ -6,9 +6,9 @@ type PageLayoutProps = {
 
 export default function PageLayout({ title, children }: PageLayoutProps) {
 	return (
-		<div className="min-h-screen bg-slate-200 p-6">
+		<div className="min-h-screen bg-gray-100 dark:bg-gray-900 p-6">
 			{/* Page Header */}
-			<h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+			<h1 className="text-2xl font-bold">{title}</h1>
 
 			{/* Page Content */}
 			{children}
