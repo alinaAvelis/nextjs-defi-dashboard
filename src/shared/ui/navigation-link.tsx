@@ -24,8 +24,8 @@ export default function NavLink({
         flex items-center gap-3 rounded-md px-3 py-2 transition
         ${
           active
-            ? "bg-blue-600 text-white"
-            : "text-gray-700 hover:bg-gray-100 hover:text-black"
+            ? "bg-blue-600 "
+            : " hover:bg-gray-100 "
         }
       `}
     >
