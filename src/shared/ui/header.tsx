@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import NavLink from "@/shared/ui/navigation-link";
 import { navigation } from "@/shared/config/navigation";
+import ConnectWallet from "@/features/connect-wallet/ui/connect-wallet";
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +40,9 @@ export default function Header() {
 				</Link>
 
 				{/* Desktop Menu */}
+				<div>
+					<ConnectWallet />
+				</div>
 
 				{/* Mobile Button */}
 				<button

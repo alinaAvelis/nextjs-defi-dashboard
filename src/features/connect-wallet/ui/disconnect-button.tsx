@@ -11,7 +11,7 @@ export default function DisconnectButton({
 }: ConnectWalletButtonProps) {
   return (
     <Button
-      variant="secondary"
+      variant="transparent"
       onClick={onClick}
     >
       Disconnect

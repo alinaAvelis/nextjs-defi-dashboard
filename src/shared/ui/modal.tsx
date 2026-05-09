@@ -33,15 +33,15 @@ export default function Modal({
 	if (!isOpen) return null;
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center">
+		<div className="fixed inset-0 z-50 flex items-center justify-center ">
 			{/* Backdrop */}
 			<div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
 			{/* Modal */}
-			<div className="relative z-10 w-full max-w-lg rounded-lg bg-white p-6 shadow-xl mx-4 sm:mx-0">
+			<div className="relative z-10 w-full max-w-lg rounded-lg bg-white dark:bg-black p-6 shadow-xl mx-4 sm:mx-0">
 				<button
 					onClick={onClose}
-					className="absolute right-3 top-3 text-gray-500 hover:text-black hover:bg-gray-100 rounded-md p-1 transition"
+					className="absolute right-3 top-3 rounded-md p-1 transition"
 					aria-label="Close modal"
 				>
 					✕
