@@ -1,4 +1,6 @@
 allowBuilds:
+  '@reown/appkit': false
+  protobufjs: false
   sharp: false
   unrs-resolver: false
 ignoredBuiltDependencies:

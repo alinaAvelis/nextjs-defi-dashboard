@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/providers/wagmi/wagmi-provider";
 
 import Header from "@/shared/ui/header";
 import Sidebar from "@/shared/ui/sidebar";
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
 	title: "Create Next App",
@@ -28,19 +18,21 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="scheme-light dark:scheme-dark">
 			<body>
-				<div className="flex min-h-screen flex-col">
-					{/* Header */}
-					<Header />
+				<Providers>
+					<div className="flex min-h-screen flex-col">
+						{/* Header */}
+						<Header />
 
-					{/* Main layout */}
-					<div className="flex flex-1">
-						{/* Sidebar */}
-						<Sidebar />
+						{/* Main layout */}
+						<div className="flex flex-1">
+							{/* Sidebar */}
+							<Sidebar />
 
-						{/* Page content */}
-						<main className="flex-1">{children}</main>
+							{/* Page content */}
+							<main className="flex-1">{children}</main>
+						</div>
 					</div>
-				</div>
+				</Providers>
 			</body>
 		</html>
 	);

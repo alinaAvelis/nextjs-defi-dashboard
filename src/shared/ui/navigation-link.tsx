@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -25,7 +26,7 @@ export default function NavLink({
         ${
           active
             ? "bg-blue-600 "
-            : " hover:bg-gray-100 "
+            : " hover:bg-gray-100 dark:hover:bg-slate-800 "
         }
       `}
     >

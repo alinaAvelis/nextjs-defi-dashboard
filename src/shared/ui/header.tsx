@@ -1,25 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import NavLink from "@/shared/ui/navigation-link";
+import Button from "@/shared/ui/button";
 import { navigation } from "@/shared/config/navigation";
+import useLockBodyScroll from "@/shared/hooks/useLockBodyScroll";
+import ConnectWalletMenu from "@/features/connect-wallet/ui/connect-wallet-menu";
 
 export default function Header() {
 	const [isOpen, setIsOpen] = useState(false);
-
 	// stop page scroll when menu is open
-	useEffect(() => {
-		if (isOpen) {
-			document.body.style.overflow = "hidden";
-		} else {
-			document.body.style.overflow = "auto";
-		}
-
-		return () => {
-			document.body.style.overflow = "auto";
-		};
-	}, [isOpen]);
+	useLockBodyScroll(isOpen);
 
 	const mobileNavigation = navigation.map((item) => (
 		<NavLink
@@ -39,10 +31,13 @@ export default function Header() {
 				</Link>
 
 				{/* Desktop Menu */}
+				<div>
+					<ConnectWalletMenu />
+				</div>
 
 				{/* Mobile Button */}
 				<button
-					className="md:hidden cursor-pointer"
+					className="md:hidden cursor-pointer hover:opacity-80"
 					onClick={() => setIsOpen(!isOpen)}
 				>
 					{isOpen ? "✕" : "☰"}
