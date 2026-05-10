@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useRef } from "react";
+import useCloseOnAction from "@/shared/hooks/useCloseOnAction";
 
 type ModalProps = {
 	isOpen: boolean;
@@ -15,25 +16,21 @@ export default function Modal({
 	title,
 	children,
 }: ModalProps) {
-	// close on ESC
-	useEffect(() => {
-		function handleKeyDown(e: KeyboardEvent) {
-			if (e.key === "Escape") onClose();
-		}
+	const modalRef = useRef<HTMLDivElement | null>(null);
 
-		if (isOpen) {
-			document.addEventListener("keydown", handleKeyDown);
-		}
-
-		return () => {
-			document.removeEventListener("keydown", handleKeyDown);
-		};
-	}, [isOpen, onClose]);
+	// close on outside click and on esc key press
+	useCloseOnAction({
+		ref: modalRef,
+		onClose,
+	});
 
 	if (!isOpen) return null;
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center ">
+		<div
+			ref={modalRef}
+			className="fixed inset-0 z-50 flex items-center justify-center "
+		>
 			{/* Backdrop */}
 			<div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
@@ -41,7 +38,7 @@ export default function Modal({
 			<div className="relative z-10 w-full max-w-lg rounded-lg bg-white dark:bg-black p-6 shadow-xl mx-4 sm:mx-0">
 				<button
 					onClick={onClose}
-					className="absolute right-3 top-3 rounded-md p-1 transition"
+					className="absolute right-3 top-3 rounded-md p-1 transition cursor-pointer hover:opacity-80"
 					aria-label="Close modal"
 				>
 					✕

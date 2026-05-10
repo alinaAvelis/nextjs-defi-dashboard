@@ -1,20 +1,17 @@
-// "use client";
-
+"use client";
+import { useDisconnect } from "wagmi";
 import Button from "@/shared/ui/button";
 
-type ConnectWalletButtonProps = {
-  onClick?: () => void;
-};
+export default function DisconnectButton() {
+	const disconnect = useDisconnect();
 
-export default function DisconnectButton({
-  onClick,
-}: ConnectWalletButtonProps) {
-  return (
-    <Button
-      variant="transparent"
-      onClick={onClick}
-    >
-      Disconnect
-    </Button>
-  );
+	const onDisconnect = () => {
+		disconnect.mutate();
+	};
+
+	return (
+		<Button variant="transparent" onClick={onDisconnect}>
+			Disconnect
+		</Button>
+	);
 }

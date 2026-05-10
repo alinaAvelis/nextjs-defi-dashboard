@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useRef } from "react";
+import useCloseOnAction from "@/shared/hooks/useCloseOnAction";
 
 type DropdownMenuProps = {
 	trigger: ReactNode;
@@ -7,34 +8,11 @@ type DropdownMenuProps = {
 
 export default function DropdownMenu({ trigger, children }: DropdownMenuProps) {
 	const detailsRef = useRef<HTMLDetailsElement>(null);
-	// close on outside click
-	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
-			if (
-				detailsRef.current &&
-				!detailsRef.current.contains(event.target as Node)
-			) {
-				detailsRef.current.removeAttribute("open");
-			}
-		}
-
-		// close on ESC
-		function handleEscape(event: KeyboardEvent) {
-			if (event.key === "Escape") {
-				detailsRef.current?.removeAttribute("open");
-			}
-		}
-
-		document.addEventListener("mousedown", handleClickOutside);
-
-		document.addEventListener("keydown", handleEscape);
-
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
-
-			document.removeEventListener("keydown", handleEscape);
-		};
-	}, []);
+	// close on outside click and on esc key press
+	useCloseOnAction({
+		ref: detailsRef,
+		onClose: () => detailsRef.current?.removeAttribute("open"),
+	});
 
 	return (
 		<details className="group relative inline-block" ref={detailsRef}>
