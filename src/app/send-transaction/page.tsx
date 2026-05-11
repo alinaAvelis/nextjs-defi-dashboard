@@ -3,7 +3,7 @@ import SendTransactionsPage from "@/pages/send-transaction/send-transaction-page
 
 export default function SendTransaction() {
     return (
-        <PageLayout title="Send transaction">
+        <PageLayout title="Send Transaction">
             <SendTransactionsPage />
         </PageLayout>
     );

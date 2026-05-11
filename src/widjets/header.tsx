@@ -23,7 +23,7 @@ export default function Header() {
 	));
 
 	return (
-		<header className="border-b  border-gray-300 dark:border-gray-700">
+		<header className="border-b theme-border">
 			<div className="mx-auto flex h-16 items-center justify-between px-4">
 				{/* Logo */}
 				<Link href="/" className="text-xl font-bold">

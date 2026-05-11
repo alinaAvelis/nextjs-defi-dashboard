@@ -11,7 +11,7 @@ export default function Sidebar() {
 	));
 
 	return (
-		<aside className="h-screen w-64 border-r border-gray-300 dark:border-gray-700 p-4 hidden md:block">
+		<aside className="h-screen w-64 border-r theme-border p-4 hidden md:block">
 			<nav className="flex flex-col gap-2">
 				{nav}
 			</nav>

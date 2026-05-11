@@ -18,23 +18,19 @@ export default function WalletCard({
 }: WalletCardProps) {
 	return (
 		<Card>
-			<p className="text-lg font-semibold text-gray-900">{title}</p>
-			<div>
-				{icon && (
-					<div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-100">
-						{icon}
-					</div>
-				)}
+			<p>{title}</p>
+			<div className="flex gap-3 items-center">
+				{icon && icon}
 				<div>
 					{subtitle && (
-						<p className="text-sm text-gray-500">
+						<p className="text-2xl leading-none font-semibold">
 							{subtitle}
 						</p>
 					)}
 
 					{/* Description */}
 					{description && (
-						<p className="mt-2 text-sm text-gray-600">
+						<p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
 							{description}
 						</p>
 					)}

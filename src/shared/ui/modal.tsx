@@ -32,10 +32,10 @@ export default function Modal({
 			className="fixed inset-0 z-50 flex items-center justify-center "
 		>
 			{/* Backdrop */}
-			<div className="absolute inset-0 bg-black/50" onClick={onClose} />
+			<div className="absolute inset-0 bg-shadow-gray-700/30 dark:bg-shadow-gray-300/30 backdrop-blur-xl" onClick={onClose} />
 
 			{/* Modal */}
-			<div className="relative z-10 w-full max-w-lg rounded-lg bg-white dark:bg-black p-6 shadow-xl mx-4 sm:mx-0">
+			<div className="relative z-10 w-full max-w-lg rounded-lg bg-white dark:bg-black p-6 mx-4 sm:mx-0 box-shadow">
 				<button
 					onClick={onClose}
 					className="absolute right-3 top-3 rounded-md p-1 transition cursor-pointer hover:opacity-80"

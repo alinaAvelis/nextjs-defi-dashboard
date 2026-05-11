@@ -1,4 +1,5 @@
 import WalletCard from "./wallet-card";
+import Icon from "@/shared/ui/icon";
 
 export default function CurrentNetwork() {
 	return (
@@ -6,7 +7,7 @@ export default function CurrentNetwork() {
 			title="Current Network"
 			subtitle="Sepolia"
 			description="Testnet"
-			icon={<span className="bg-gray-500 rounded-full w-10 h-10" />}
+			icon={<Icon />}
 		/>
 	);
 }

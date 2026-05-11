@@ -1,4 +1,3 @@
-
 type InputProps = {
   label?: string;
   value?: string;
@@ -10,6 +9,9 @@ type InputProps = {
 
   error?: string;
   required?: boolean;
+
+  showMaxButton?: boolean;
+  onMaxClick?: () => void;
 
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -23,6 +25,8 @@ export default function Input({
   bottomText,
   error,
   required = false,
+  showMaxButton = false,
+  onMaxClick,
   onChange,
 }: InputProps) {
   const hasError = Boolean(error);
@@ -38,37 +42,45 @@ export default function Input({
 
       {/* Top helper text */}
       {topText && !hasError && (
-        <span className="text-xs text-gray-500">
-          {topText}
-        </span>
+        <span className="text-xs text-gray-500">{topText}</span>
       )}
 
-      {/* Input */}
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        className={`
-          rounded-md border px-3 py-2 outline-none transition
-          ${
-            hasError
-              ? "border-red-500 focus:ring-2 focus:ring-red-200"
-              : "border-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-          }
-        `}
-      />
+      {/* Input wrapper */}
+      <div className="relative">
+        <input
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          className={`
+            w-full rounded-md border px-3 py-2 outline-none transition
+            ${showMaxButton ? "pr-16" : ""}
+            ${
+              hasError
+                ? "border-red-500 focus:ring-2 focus:ring-red-200"
+                : "border-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            }
+          `}
+        />
+
+        {/* Max button */}
+        {showMaxButton && (
+          <button
+            type="button"
+            onClick={onMaxClick}
+            className="absolute right-2 top-1/2 -translate-y-1/2 rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-200"
+          >
+            MAX
+          </button>
+        )}
+      </div>
 
       {/* Bottom helper text / error */}
       {hasError ? (
-        <span className="text-xs text-red-500">
-          {error}
-        </span>
+        <span className="text-xs text-red-500">{error}</span>
       ) : (
         bottomText && (
-          <span className="text-xs text-gray-500">
-            {bottomText}
-          </span>
+          <span className="text-xs text-gray-500">{bottomText}</span>
         )
       )}
     </div>
