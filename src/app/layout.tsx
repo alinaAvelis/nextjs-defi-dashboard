@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/providers/wagmi/wagmi-provider";
 
-import Header from "@/shared/ui/header";
-import Sidebar from "@/shared/ui/sidebar";
+import Header from "@/widjets/header";
+import Sidebar from "@/widjets/sidebar";
 
 export const metadata: Metadata = {
 	title: "Create Next App",

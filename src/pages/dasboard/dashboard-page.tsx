@@ -1,4 +1,4 @@
-import WalletInformation from "@/features/view-wallet-information/ui/wallet-information";
+import WalletInformation from "@/widjets/view-wallet-information/ui/wallet-information";
 
 export default function DashboardPage() {
 	return <>

@@ -1,4 +1,4 @@
-import PageLayout from "@/shared/ui/page-layout";
+import PageLayout from "@/widjets/page-layout";
 import SendTransactionsPage from "@/pages/send-transaction/send-transaction-page";
 
 export default function SendTransaction() {

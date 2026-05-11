@@ -1,4 +1,4 @@
-import PageLayout from "@/shared/ui/page-layout";
+import PageLayout from "@/widjets/page-layout";
 import DashboardPage from "@/pages/dasboard/dashboard-page";
 
 export default function Dashboard() {

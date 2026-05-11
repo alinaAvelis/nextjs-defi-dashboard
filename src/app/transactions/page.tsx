@@ -1,4 +1,4 @@
-import PageLayout from "@/shared/ui/page-layout";
+import PageLayout from "@/widjets/page-layout";
 import TransactionsPage from "@/pages/transactions/transactions-page";
 
 export default function Transactions() {
