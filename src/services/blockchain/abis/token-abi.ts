@@ -1,4 +1,4 @@
-export const tokenAby = [
+export const tokenAbi = [
 	{
 		constant: true,
 		inputs: [],
