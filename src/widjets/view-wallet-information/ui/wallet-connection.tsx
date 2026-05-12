@@ -1,14 +1,10 @@
 "use client";
 
-import { useConnection } from "wagmi";
-import { formatAddress } from "@/shared/utils/format-address";
-import { zeroAddress } from "@/shared/constants/blockchain";
-
+import { useWallet } from "@/entities/wallet/hooks/use-wallet";
 import WalletCard from "./wallet-card";
 
 export default function WalletConnection() {
-	const { address, isConnected } = useConnection();
-	const shortAddress = formatAddress(address || zeroAddress);
+	const { shortAddress, address, isConnected } = useWallet();
 	const connectedText = isConnected ? "Connected" : "Not connected";
 	return (
 		<WalletCard

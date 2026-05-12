@@ -1,18 +1,13 @@
 "use client";
 
-import { useConnection, useEnsName } from "wagmi";
-import { formatAddress } from "@/shared/utils/format-address";
 import DropdownMenu from "@/shared/ui/dropdown-nemu";
 import CopyButton from "@/shared/ui/copy-button";
 import DisconnectButton from "./disconnect-button";
 import ConnectWallet from "./connect-wallet";
+import { useWallet } from "@/entities/wallet/hooks/use-wallet";
 
 export default function ConnectWalletMenu() {
-	const { address, isConnected } = useConnection();
-	const { data, error, status } = useEnsName({ address });
-	console.log(data, error, status);
-
-	const shortAddress = formatAddress(address);
+	const { shortAddress, address, isConnected } = useWallet();
 
 	// not connected
 	if (!isConnected) {
