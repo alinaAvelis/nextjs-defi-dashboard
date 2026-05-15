@@ -1,5 +1,5 @@
 export type UserWallet = {
-	address: string;
+	address: `0x${string}`;
 	chainId?: number;
 	shortAddress: string;
 	isConnected: boolean;
