@@ -12,8 +12,8 @@ const sizeStyles = {
 
 export default function Icon({ icon, size = "medium" }: IconProps) {
 	return (
-		<div className={`bg-gray-500 rounded-full ${sizeStyles[size]}`}>
+		<span className={`bg-gray-500 rounded-full ${sizeStyles[size]}`}>
 			{icon && icon}
-		</div>
+		</span>
 	);
 }

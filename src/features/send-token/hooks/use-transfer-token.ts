@@ -2,7 +2,6 @@
 
 import { useWriteContract } from "wagmi";
 import { tokenAbi } from "@/services/blockchain/abis/token-abi";
-import { parseUnits } from "viem";
 
 type TransferTokenParams = {
 	address: `0x${string}`;
@@ -19,7 +18,7 @@ export function useTransferToken() {
 			address,
 			abi: tokenAbi,
 			functionName: "transfer",
-			args: [to, parseUnits(amount, 18)],
+			args: [to, amount],
 		});
 	}
 

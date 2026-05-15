@@ -1,11 +1,18 @@
 "use client";
 import { useState } from "react";
-
+import { useChainId, useConnect } from "wagmi";
 import Input from "@/shared/ui/input";
 import Button from "@/shared/ui/button";
 import Selector from "@/shared/ui/selector";
 import Asset from "@/shared/ui/asset";
 import Card from "@/shared/ui/card";
+import { tokensArray, Token } from "@/shared/config/tokens-contracts";
+import { useTokenBalance } from "@/shared/hooks/blockchain/use-token-balance";
+import { useGetAllowance } from "../hooks/use-get-allowance";
+import { parseAmount } from "@/shared/utils/parse-amount";
+import { useApproveToken } from "../hooks/use-approve-token";
+import { useTransferToken } from "../hooks/use-transfer-token";
+import { useWallet } from "@/entities/wallet/hooks/use-wallet";
 
 type TokenOption = {
 	label: string;
@@ -37,32 +44,55 @@ const TOKENS: TokenOption[] = [
 ];
 
 export default function SendTransactionForm() {
+	const { shortAddress, address, isConnected } = useWallet();
+	const chainId = useChainId();
 	const [recipient, setRecipient] = useState("");
-	const [amount, setAmount] = useState("");
-	const [selectedToken, setSelectedToken] = useState<TokenOption>(TOKENS[0]);
+	const [amount, setAmount] = useState<string>("0");
+	const [selectedTokenSymbol, setSelectedTokenSymbol] = useState<string>(
+		tokensArray[0].symbol,
+	);
+
+	const selectedToken = tokensArray.find(
+		(token) => token.symbol === selectedTokenSymbol,
+	) as Token;
+
+	const { balance } = useTokenBalance({
+		tokenAddress: selectedToken.contract[chainId],
+		userAddress: address,
+	});
+
+	console.log(balance);
+
+	const tokenBalance = String(balance);
+	const options = tokensArray.map((token) => ({
+		content: (
+
+			<Asset
+				description={token.name}
+				name={token.symbol}
+				// balance={selectedToken.balance}
+				// image={selectedToken.icon}
+			/>
+		),
+		value: token.symbol,
+	}));
 
 	return (
 		<Card>
 			<form>
-                	{/* Token selector */}
+				{/* Token selector */}
 				<div className="flex flex-col gap-2">
 					<label className="text-sm font-medium text-gray-700">
 						Select Token
 					</label>
 
 					<Selector
-						value={selectedToken.value}
-						//   onChange={(value: string) => {
-						//     const token = TOKENS.find((t) => t.value === value);
-
-						//     if (token) {
-						//       setSelectedToken(token);
-						//     }
-						//   }}
-						options={TOKENS.map((token) => ({
-							label: token.label,
-							value: token.value,
-						}))}
+						value={selectedToken.symbol}
+						onChange={(value: string) => {
+							
+							setSelectedTokenSymbol(value);
+						}}
+						options={options}
 					/>
 
 					{/* Selected asset preview */}
@@ -84,8 +114,6 @@ export default function SendTransactionForm() {
 					required
 				/>
 
-			
-
 				{/* Amount */}
 				<Input
 					label="Amount"
@@ -94,8 +122,8 @@ export default function SendTransactionForm() {
 					value={amount}
 					onChange={(e) => setAmount(e.target.value)}
 					showMaxButton
-					onMaxClick={() => setAmount(selectedToken.balance)}
-					bottomText={`Available balance: ${selectedToken.balance} ${selectedToken.symbol}`}
+					onMaxClick={() => setAmount(tokenBalance)}
+					bottomText={`Available balance: ${balance} ${selectedToken.symbol}`}
 					required
 				/>
 

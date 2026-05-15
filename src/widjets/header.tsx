@@ -5,7 +5,7 @@ import Link from "next/link";
 import NavLink from "@/shared/ui/navigation-link";
 import Button from "@/shared/ui/button";
 import { navigation } from "@/shared/config/navigation";
-import useLockBodyScroll from "@/shared/hooks/useLockBodyScroll";
+import useLockBodyScroll from "@/shared/hooks/use-lock-body-scroll";
 import ConnectWalletMenu from "@/features/connect-wallet/ui/connect-wallet-menu";
 
 export default function Header() {

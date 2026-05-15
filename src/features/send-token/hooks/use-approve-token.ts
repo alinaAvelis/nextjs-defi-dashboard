@@ -1,20 +1,24 @@
 "use client";
 
 import { useWriteContract } from "wagmi";
-import { parseUnits } from "viem";
+
 import { tokenAbi } from "@/services/blockchain/abis/token-abi";
 
 type ApproveTokenParams = {
 	tokenAddress: `0x${string}`;
 	spender: `0x${string}`;
-	amount: string;
+	amount: bigint;
 };
 
 export function useApproveToken() {
 	const { mutateAsync, isError, isIdle, isPending, isSuccess } =
 		useWriteContract();
 
-	async function approve({ tokenAddress, spender, amount }: ApproveTokenParams) {
+	async function approve({
+		tokenAddress,
+		spender,
+		amount,
+	}: ApproveTokenParams) {
 		return mutateAsync({
 			address: tokenAddress,
 
@@ -22,7 +26,7 @@ export function useApproveToken() {
 
 			functionName: "approve",
 
-			args: [spender, parseUnits(amount, 18)],
+			args: [spender, amount],
 		});
 	}
 

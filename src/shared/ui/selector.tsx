@@ -1,52 +1,185 @@
+import {ReactNode, useState, useEffect, useRef, useId} from "react"
 
 type Option = {
-  label: string;
-  value: string;
-};
+  value: string
+  content: ReactNode
+}
 
-type SelectProps = {
-  options: Option[];
+type CustomSelectProps = {
+  label?: string
+  options: Option[]
+  value?: string
+  placeholder?: string
+  onChange?: (value: string) => void
+}
 
-  value?: string;
-
-  placeholder?: string;
-
-  onChange?: (
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => void;
-};
-
-export default function Selector({
+export default function CustomSelect({
+  label,
   options,
   value,
-  placeholder = "Select option",
+  placeholder = "Select an option",
   onChange,
-}: SelectProps) {
+}: CustomSelectProps) {
+  const [isOpen, setIsOpen] = useState(false)
+  const [selected, setSelected] = useState(value || "")
+  const [highlightedIndex, setHighlightedIndex] = useState(0)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+
+  const selectedOption = options.find((o) => o.value === selected)
+
+  const listboxId = useId()
+  const labelId = useId()
+
+  const closeSelect = () => {
+    setIsOpen(false)
+    buttonRef.current?.focus()
+  }
+
+  const handleSelect = (option: Option) => {
+    setSelected(option.value)
+    onChange?.(option.value)
+    closeSelect()
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        !buttonRef.current?.contains(event.target as Node) &&
+        !listRef.current?.contains(event.target as Node)
+      ) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault()
+
+        if (!isOpen) {
+          setIsOpen(true)
+        } else {
+          setHighlightedIndex((prev) =>
+            prev < options.length - 1 ? prev + 1 : 0
+          )
+        }
+        break
+
+      case "ArrowUp":
+        e.preventDefault()
+
+        if (isOpen) {
+          setHighlightedIndex((prev) =>
+            prev > 0 ? prev - 1 : options.length - 1
+          )
+        }
+        break
+
+      case "Enter":
+      case " ":
+        e.preventDefault()
+
+        if (!isOpen) {
+          setIsOpen(true)
+        } else {
+          handleSelect(options[highlightedIndex])
+        }
+        break
+
+      case "Escape":
+        e.preventDefault()
+        setIsOpen(false)
+        break
+
+      case "Tab":
+        setIsOpen(false)
+        break
+    }
+  }
+
   return (
-    <div className="relative w-full">
-      <select
-        value={value}
-        onChange={onChange}
-        className="w-full appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 pr-10 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    <div className="relative w-72">
+      {label && <label
+        id={labelId}
+        className="mb-2 block text-sm font-medium"
       >
-        <option value="" disabled>
-          {placeholder}
-        </option>
+        {label}
+      </label>}
 
-        {options.map((option) => (
-          <option
-            key={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
-      </select>
+      <button
+        ref={buttonRef}
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
+        aria-labelledby={labelId}
+        aria-controls={listboxId}
+        onClick={() => setIsOpen((prev) => !prev)}
+        onKeyDown={(e) => console.log(e.key)}
+        className="flex w-full items-center justify-between rounded-xl border theme-border bg-white dark:bg-gray-950 px-4 py-3 text-left shadow-sm outline-none transition focus:border-blue-700 focus:ring-2 focus:ring-blue-700"
+      >
+        <span>
+          {selectedOption ? selectedOption.content : placeholder}
+        </span>
 
-      {/* Arrow */}
-      <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">
-        ▼
-      </span>
+        <svg
+          className={`h-4 w-4 transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+
+      {isOpen && (
+        <ul
+          ref={listRef}
+          id={listboxId}
+          role="listbox"
+          tabIndex={-1}
+          aria-labelledby={labelId}
+          className="absolute z-10 mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-lg"
+        >
+          {options.map((option, index) => {
+            const isSelected = selected === option.value
+            const isHighlighted = highlightedIndex === index
+
+            return (
+              <li
+                key={option.value}
+                role="option"
+                aria-selected={isSelected}
+                onMouseEnter={() => setHighlightedIndex(index)}
+                onClick={() => handleSelect(option)}
+                className={`cursor-pointer px-4 py-3 transition ${
+                  isHighlighted
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                }`}
+              >
+                {option.content}
+              </li>
+            )
+          })}
+        </ul>
+      )}
     </div>
-  );
+  )
 }

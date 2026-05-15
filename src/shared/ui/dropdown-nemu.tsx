@@ -1,5 +1,5 @@
 import { ReactNode, useRef } from "react";
-import useCloseOnAction from "@/shared/hooks/useCloseOnAction";
+import useCloseOnAction from "@/shared/hooks/use-close-on-action";
 
 type DropdownMenuProps = {
 	trigger: ReactNode;
