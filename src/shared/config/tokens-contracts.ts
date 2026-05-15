@@ -24,6 +24,15 @@ export const tokens: Tokens = {
 			[mainnet.id]: "0xC02aaA39b223FE8D0A0E5C4F27eAD9083C756Cc2",
 		},
 	},
+	USDC: {
+		symbol: "USDC",
+		name: "USD Coin",	
+		contract: {
+			[sepolia.id]: "0x10279e6333f9d0EE103F4715b8aaEA75BE61464C",
+			[mainnet.id]: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+		}
+	},
+	
 };
 
 export const tokensArray: TokensArray = Object.values(tokens);
