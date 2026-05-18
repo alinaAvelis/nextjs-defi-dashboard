@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useChainId, useConnect } from "wagmi";
+import { useChainId, useConnect, useReadContract } from "wagmi";
 import Input from "@/shared/ui/input";
 import Button from "@/shared/ui/button";
 import Selector from "@/shared/ui/selector";
@@ -13,6 +13,8 @@ import { parseAmount } from "@/shared/utils/parse-amount";
 import { useApproveToken } from "../hooks/use-approve-token";
 import { useTransferToken } from "../hooks/use-transfer-token";
 import { useWallet } from "@/entities/wallet/hooks/use-wallet";
+import { erc20Abi } from "viem";
+import { config } from "@/providers/wagmi/config";
 
 type TokenOption = {
 	label: string;
@@ -22,28 +24,9 @@ type TokenOption = {
 	icon?: string;
 };
 
-const TOKENS: TokenOption[] = [
-	{
-		label: "Ethereum",
-		value: "eth",
-		symbol: "ETH",
-		balance: "1.245",
-	},
-	{
-		label: "USD Coin",
-		value: "usdc",
-		symbol: "USDC",
-		balance: "542.10",
-	},
-	{
-		label: "Tether",
-		value: "usdt",
-		symbol: "USDT",
-		balance: "1200.00",
-	},
-];
 
 export default function SendTransactionForm() {
+	
 	const { shortAddress, address, isConnected } = useWallet();
 	const chainId = useChainId();
 	const [recipient, setRecipient] = useState("");
@@ -52,9 +35,12 @@ export default function SendTransactionForm() {
 		tokensArray[0].symbol,
 	);
 
+
 	const selectedToken = tokensArray.find(
 		(token) => token.symbol === selectedTokenSymbol,
 	) as Token;
+
+
 
 	const { balance } = useTokenBalance({
 		tokenAddress: selectedToken.contract[chainId],

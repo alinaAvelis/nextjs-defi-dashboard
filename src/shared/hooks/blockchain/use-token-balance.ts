@@ -1,3 +1,5 @@
+"use client";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
@@ -16,7 +18,7 @@ export function useTokenBalance({
 	const [error, setError] = useState<Error | null>(null);
 
 	const canFetch = useMemo(() => {
-		return tokenAddress && userAddress;
+		return Boolean(tokenAddress && userAddress);
 	}, [tokenAddress, userAddress]);
 
 	const fetchBalance = useCallback(
@@ -29,6 +31,8 @@ export function useTokenBalance({
 					tokenAddress,
 					userAddress,
 				});
+
+				console.log("Fetched token balance:", result);
 
 				setBalance(result);
 			} catch (err) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { walletClient } from "../clients/wallet-client";
+// import { walletClient } from "../clients/wallet-client";
 
 import { tokenAbi } from "../abis/token-abi";
 
@@ -12,15 +12,15 @@ type SendTokenParams = {
 };
 
 export async function sendToken({ tokenAddress, to, amount, account }: SendTokenParams) {
-	return walletClient.writeContract({
-		address: tokenAddress,
+	// return walletClient.writeContract({
+	// 	address: tokenAddress,
 
-		abi: tokenAbi,
+	// 	abi: tokenAbi,
 
-		functionName: "transfer",
+	// 	functionName: "transfer",
 
-		args: [to, amount],
+	// 	args: [to, amount],
 
-		account,
-	});
+	// 	account,
+	// });
 }

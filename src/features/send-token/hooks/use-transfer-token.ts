@@ -14,12 +14,12 @@ export function useTransferToken() {
 		useWriteContract();
 
 	async function transferToken({ address, to, amount }: TransferTokenParams) {
-		return mutateAsync({
-			address,
-			abi: tokenAbi,
-			functionName: "transfer",
-			args: [to, amount],
-		});
+		// return mutateAsync({
+		// 	address,
+		// 	abi: tokenAbi,
+		// 	functionName: "transfer",
+		// 	args: [to, amount],
+		// });
 	}
 
 	return {
