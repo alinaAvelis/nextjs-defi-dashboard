@@ -1,6 +1,5 @@
 "use client";
 import { publicClient } from "../clients/wallet-client";
-import { erc20Abi } from "viem";
 import { tokenAbi } from "../abis/token-abi";
 
 export type GetTokenParams = {
@@ -15,7 +14,7 @@ export async function getTokenBalance({
 
 	return await publicClient.readContract({
 		address: tokenAddress.toLowerCase() as `0x${string}`,
-		abi: erc20Abi,
+		abi: tokenAbi,
 
 		functionName: "balanceOf",
 		args: [userAddress.toLowerCase() as `0x${string}`],
