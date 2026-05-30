@@ -16,7 +16,7 @@ export function useUserBalances({
 		if (!Boolean(userAddress)) {
 			setError(
 				new Error(
-					"Cannot fetch token balance: Missing tokenAddress or userAddress",
+					"Cannot fetch tokens balances: Missing userAddress",
 				),
 			);
 
