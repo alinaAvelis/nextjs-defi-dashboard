@@ -1,5 +1,5 @@
 "use client";
-import { publicClient } from "../clients/wallet-client";
+import {readContract} from "@/shared/blockchain/read-contract";
 import { tokenAbi } from "../abis/token-abi";
 
 export type GetTokenParams = {
@@ -12,11 +12,11 @@ export async function getTokenBalance({
 	userAddress,
 }: GetTokenParams) {
 
-	return await publicClient.readContract({
-		address: tokenAddress.toLowerCase() as `0x${string}`,
+	return await readContract({
+		address: tokenAddress,
 		abi: tokenAbi,
 
 		functionName: "balanceOf",
 		args: [userAddress.toLowerCase() as `0x${string}`],
-	});
+	}) as bigint;
 }

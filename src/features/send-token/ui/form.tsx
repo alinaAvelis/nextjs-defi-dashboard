@@ -7,7 +7,7 @@ import Selector from "@/shared/ui/selector";
 import Asset from "@/shared/ui/asset";
 import Card from "@/shared/ui/card";
 import { tokensArray, Token } from "@/shared/config/tokens-contracts";
-import { useTokenBalance } from "@/shared/hooks/blockchain/use-token-balance";
+import { useTokenBalance } from "@/features/send-token/hooks/use-token-balance";
 import { useGetAllowance } from "../hooks/use-get-allowance";
 import { parseAmount } from "@/shared/utils/parse-amount";
 import { useApproveToken } from "../hooks/use-approve-token";
@@ -24,9 +24,8 @@ type TokenOption = {
 	icon?: string;
 };
 
-
 export default function SendTransactionForm() {
-	
+
 	const { shortAddress, address, isConnected } = useWallet();
 	const chainId = useChainId();
 	const [recipient, setRecipient] = useState("");
@@ -35,24 +34,18 @@ export default function SendTransactionForm() {
 		tokensArray[0].symbol,
 	);
 
-
 	const selectedToken = tokensArray.find(
 		(token) => token.symbol === selectedTokenSymbol,
 	) as Token;
 
-
-
-	const { balance } = useTokenBalance({
+	const { balance, refetchBalance } = useTokenBalance({
 		tokenAddress: selectedToken.contract[chainId],
 		userAddress: address,
 	});
 
-	console.log(balance);
-
 	const tokenBalance = String(balance);
 	const options = tokensArray.map((token) => ({
 		content: (
-
 			<Asset
 				description={token.name}
 				name={token.symbol}
@@ -75,8 +68,11 @@ export default function SendTransactionForm() {
 					<Selector
 						value={selectedToken.symbol}
 						onChange={(value: string) => {
-							
 							setSelectedTokenSymbol(value);
+							refetchBalance({
+								tokenAddress: selectedToken.contract[chainId],
+								userAddress: address,
+							});
 						}}
 						options={options}
 					/>

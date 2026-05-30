@@ -1,5 +1,6 @@
+"use client";
 import WalletInformation from "@/widjets/view-wallet-information/ui/wallet-information";
-import ViewBalances from "@/features/view-balances/view-balances";
+import ViewBalances from "@/features/view-balances/ui/view-balances";
 import ViewResentTransactions from "@/features/view-resent-trasactions/view-resent-transactions";
 
 export default function DashboardPage() {

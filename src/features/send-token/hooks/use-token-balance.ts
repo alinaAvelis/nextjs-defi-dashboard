@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import {
 	getTokenBalance,
@@ -17,12 +17,15 @@ export function useTokenBalance({
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState<Error | null>(null);
 
-	const canFetch = useMemo(() => {
-		return Boolean(tokenAddress && userAddress);
-	}, [tokenAddress, userAddress]);
-
 	const fetchBalance = useCallback(
-		async () => {
+		async ({ tokenAddress, userAddress }: UseTokenBalanceParams) => {
+			if (!Boolean(tokenAddress && userAddress)) {
+				new Error(
+					"Cannot fetch token balance: Missing tokenAddress or userAddress",
+				);
+
+				return;
+			}
 			try {
 				setLoading(true);
 				setError(null);
@@ -45,33 +48,20 @@ export function useTokenBalance({
 				setLoading(false);
 			}
 		},
-		[userAddress, tokenAddress],
+		[],
 	);
 
 	useEffect(() => {
-		if (canFetch) {
-			(async () => {
-				await fetchBalance();
-			})();
-		}
-	}, [fetchBalance, canFetch,]);
+		(async () => {
+			await fetchBalance({ tokenAddress, userAddress });
+		})();
+	}, [fetchBalance, tokenAddress, userAddress]);
 
-	// useEffect(() => {
-	// 	if (!refreshInterval || !canFetch) {
-	// 		return;
-	// 	}
-
-	// 	const interval = setInterval(() => {
-	// 		fetchBalance();
-	// 	}, refreshInterval);
-
-	// 	return () => clearInterval(interval);
-	// }, [refreshInterval, canFetch, fetchBalance]);
 
 	return {
 		balance: balance,
 		loading,
 		error,
-		refetch: fetchBalance,
+		refetchBalance: fetchBalance,
 	};
 }
