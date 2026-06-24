@@ -1,6 +1,7 @@
-"use client";
+// "use client";
 import { publicClient } from "@/clients/wallet-client";
 import { tokenAbi } from "../abis/token-abi";
+
 
 export type GetTokenParams = {
 	tokenAddress: `0x${string}`;

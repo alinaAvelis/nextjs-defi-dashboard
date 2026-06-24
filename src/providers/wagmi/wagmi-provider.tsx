@@ -7,7 +7,7 @@ import { config } from './config'
 
 const queryClient = new QueryClient()
 
-export function Providers({
+export function WagmiProviders({
   children,
 }: {
   children: React.ReactNode

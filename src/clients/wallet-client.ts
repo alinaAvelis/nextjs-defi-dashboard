@@ -1,6 +1,6 @@
 // services/blockchain/clients/wallet-client.ts
 
-"use client";
+// "use client";
 
 import { createWalletClient, createPublicClient, http, custom } from "viem";
 

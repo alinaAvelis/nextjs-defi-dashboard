@@ -3,7 +3,9 @@ import WalletInformation from "@/widjets/view-wallet-information/ui/wallet-infor
 import ViewBalances from "@/features/view-balances/ui/view-balances";
 import ViewResentTransactions from "@/features/view-resent-trasactions/view-resent-transactions";
 
+
 export default function DashboardPage() {
+
 	return (
 		<div className="flex flex-col gap-5">
 			<WalletInformation />

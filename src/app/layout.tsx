@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Providers } from "@/providers/wagmi/wagmi-provider";
-
+import { WagmiProviders } from "@/providers/wagmi/wagmi-provider";
+import { BalanceProvider } from "@/providers/balance-provider";
 import Header from "@/widjets/header";
 import Sidebar from "@/widjets/sidebar";
 
@@ -18,21 +18,23 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="scheme-light dark:scheme-dark">
 			<body>
-				<Providers>
-					<div className="flex min-h-screen flex-col">
-						{/* Header */}
-						<Header />
+				<WagmiProviders>
+					<BalanceProvider>
+						<div className="flex min-h-screen flex-col">
+							{/* Header */}
+							<Header />
 
-						{/* Main layout */}
-						<div className="flex flex-1">
-							{/* Sidebar */}
-							<Sidebar />
+							{/* Main layout */}
+							<div className="flex flex-1">
+								{/* Sidebar */}
+								<Sidebar />
 
-							{/* Page content */}
-							<main className="flex-1">{children}</main>
+								{/* Page content */}
+								<main className="flex-1">{children}</main>
+							</div>
 						</div>
-					</div>
-				</Providers>
+					</BalanceProvider>
+				</WagmiProviders>
 			</body>
 		</html>
 	);
