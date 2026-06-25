@@ -14,6 +14,8 @@ export function useWallet() {
 
 	const shortAddress = formatAddress(userAddress);
 
+	const isUserAddressExist = address && address !== zeroAddress ? true : false;
+
 	// const chainId = useChainId();
 
 	const userWallet: UserWallet = {
@@ -21,6 +23,7 @@ export function useWallet() {
 		shortAddress,
 		// chainId,
 		isConnected,
+		isUserAddressExist
 	};
 
 	return userWallet;

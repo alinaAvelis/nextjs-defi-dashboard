@@ -2,11 +2,11 @@ import { TTableRowCols } from "@/shared/ui/table/types";
 import Card from "@/shared/ui/card";
 import Table from "@/shared/ui/table/table";
 import Asset from "@/shared/ui/asset";
-import { useGetBalancesObject } from "@/shared/stores/user-tokens/selector";
+import { useGetUserTokensArray } from "@/shared/stores/user-tokens/selector";
 	
 export default function ViewBalances() {
-	const balancesObject = useGetBalancesObject()
-		console.log(balancesObject)
+	const tokensArray = useGetUserTokensArray()
+		console.log(tokensArray)
 	return (
 		<Card>
 			<h2>Token Balances</h2>

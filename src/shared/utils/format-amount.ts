@@ -1,12 +1,10 @@
 import { fromHex, formatUnits } from "viem";
-import { getTokenDecimals } from "@/services/blockchain/read/get-token-decimals";
 
-export const formatAmount = async (
-	tokenAddress: `0x${string}`,
+export const formatAmount = (
 	amount: bigint | `0x${string}`,
+	decimals: number,
 	isFromHex?: boolean,
 ) => {
-	const decimals = (await getTokenDecimals({ tokenAddress })) as number;
 
 	let newAmount = amount;
 	if (typeof amount === "string" && isFromHex) {
