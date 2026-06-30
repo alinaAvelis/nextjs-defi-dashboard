@@ -35,7 +35,7 @@ export function useTokenBalance({
 					userAddress,
 				});
 
-				console.log("Fetched token balance:", result);
+				// console.log("Fetched token balance:", result);
 
 				setBalance(result);
 			} catch (err) {

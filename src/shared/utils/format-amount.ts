@@ -11,6 +11,7 @@ export const formatAmount = (
 		newAmount = fromHex(amount, "bigint");
 	}
 	if (decimals) {
-		return formatUnits(newAmount as bigint, decimals);
+		const AmountNumber = Number(formatUnits(newAmount as bigint, decimals))
+		return AmountNumber.toLocaleString();
 	}
 };

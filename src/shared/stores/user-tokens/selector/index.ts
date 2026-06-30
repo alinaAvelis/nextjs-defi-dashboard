@@ -5,11 +5,11 @@ export const useFetchTokens = () => {
 
 	return fetchTokens;
 };
-export const useFetchBalances = () => {
-	const fetchBalances = useUserTokensStore((state) => state.fetchBalances);
+// export const useFetchBalances = () => {
+// 	const fetchBalances = useUserTokensStore((state) => state.fetchBalances);
 
-	return fetchBalances;
-};
+// 	return fetchBalances;
+// };
 
 
 // export const useGetBalancesObject = () => {

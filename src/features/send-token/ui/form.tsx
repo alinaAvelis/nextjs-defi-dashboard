@@ -15,6 +15,7 @@ import { useTransferToken } from "../hooks/use-transfer-token";
 import { useWallet } from "@/entities/wallet/hooks/use-wallet";
 import { erc20Abi } from "viem";
 import { config } from "@/providers/wagmi/config";
+import { useGetUserTokensObject } from "@/shared/stores/user-tokens/selector";
 
 type TokenOption = {
 	label: string;
@@ -25,6 +26,7 @@ type TokenOption = {
 };
 
 export default function SendTransactionForm() {
+	const tokensObject = useGetUserTokensObject()
 
 	const { shortAddress, address, isConnected } = useWallet();
 	const chainId = useChainId();
